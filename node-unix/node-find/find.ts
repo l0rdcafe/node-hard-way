@@ -2,7 +2,7 @@ import { exec } from "child_process";
 import fs from "fs";
 import glob from "glob";
 import path from "path";
-import { grepFile, Options, parseOptions } from "../node-grep/grep";
+import { grepFile, Options, parseOptions } from "../node-grep";
 
 interface Filters {
   [key: string]: string;
