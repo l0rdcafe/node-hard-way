@@ -20,7 +20,6 @@ const flags: Flag = {
 };
 
 function cut(options: Params, line: string): void {
-  console.log({ options });
   let charStartIndex = 0;
   let charEndIndex = line.length - 1;
   let result = "";
