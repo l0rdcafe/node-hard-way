@@ -5,9 +5,6 @@ import readline from "readline";
 interface SedOptions {
   replace: string;
   search: RegExp;
-}
-
-interface Params extends SedOptions {
   file?: string;
 }
 
@@ -50,13 +47,13 @@ function parseSyntax(syntaxString: string): SedOptions {
   };
 }
 
-function parseParameters(params: string[]): Params {
+function parseParameters(params: string[]): SedOptions {
   if (params.length > 2) {
     throw new Error("Invalid number of arguments");
   }
 
   const { replace, search } = parseSyntax(params[0]);
-  const options: Params = {
+  const options: SedOptions = {
     replace,
     search
   };
