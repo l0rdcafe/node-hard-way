@@ -175,13 +175,30 @@ if (cmdArgs.length === 0) {
     sort(opts.order, lines, opts.numerical, opts.caseInsensitive);
   });
 } else if (cmdArgs.length > 0) {
-  const pathname = path.join(__dirname, opts.file);
-  fs.readFile(pathname, "utf8", (err, data) => {
-    if (err) {
-      throw err;
-    }
+  if (opts.file) {
+    const pathname = path.join(__dirname, opts.file);
+    fs.readFile(pathname, "utf8", (err, data) => {
+      if (err) {
+        throw err;
+      }
 
-    const lines = data.toString().split("\n").filter((line: string) => line);
-    sort(opts.order, lines, opts.numerical, opts.caseInsensitive);
-  });
+      const lines = data.toString().split("\n").filter((line: string) => line);
+      sort(opts.order, lines, opts.numerical, opts.caseInsensitive);
+    });
+  } else {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      terminal: false
+    });
+    const lines: string[] = [];
+
+    rl.on("line", (line: string) => {
+      lines.push(line);
+    });
+
+    rl.on("close", () => {
+      sort(opts.order, lines, opts.numerical, opts.caseInsensitive);
+    });
+  }
 }
